@@ -228,13 +228,14 @@ class GPSDataCapture:
                             
                             # Print current data
                             if data.get('type') == 'RMC' and data.get('latitude'):
-                                print(f"\n📍 GPS Fix: {data['latitude']:.6f}° {data['lat_dir']}, "
+                                print(f"\nGPS Fix: {data['latitude']:.6f}° {data['lat_dir']}, "
                                       f"{data['longitude']:.6f}° {data['lon_dir']}")
                                 if data.get('speed_kmh'):
-                                    print(f"   🚗 Speed: {data['speed_kmh']:.1f} km/h ({data['speed_mph']:.1f} mph, {data['speed_knots']:.1f} knots)")
+                                    print(f"   Speed: {data['speed_kmh']:.1f} km/h ("
+                                          f"{data['speed_mph']:.1f} mph, {data['speed_knots']:.1f} knots)")
                                 if data.get('course'):
-                                    print(f"   🧭 Course: {data['course']:.1f}° {data.get('course_direction', '')}")
-                                print(f"   ⏰ Time: {data.get('timestamp', 'N/A')}")
+                                    print(f"   Course: {data['course']:.1f}° {data.get('course_direction', '')}")
+                                print(f"   Time: {data.get('timestamp', 'N/A')}")
                             
                             # Save data periodically
                             if current_time - last_save_time >= save_interval_seconds:
@@ -244,7 +245,7 @@ class GPSDataCapture:
                                 data_count += 1
                                 last_save_time = current_time
                                 
-                                print(f"   💾 Saved data #{data_count} to {self.csv_filename}")
+                                print(f"   Saved data #{data_count} to {self.csv_filename}")
                 
                 except KeyboardInterrupt:
                     print("\n\nStopping GPS data capture...")
@@ -258,7 +259,7 @@ class GPSDataCapture:
                 self.ser.close()
                 print("GPS connection closed")
             
-            print(f"\n📊 Data capture complete!")
+            print(f"\nData capture complete!")
             print(f"   Total data points saved: {data_count}")
             if self.csv_filename:
                 print(f"   CSV file: {self.data_dir}/{self.csv_filename}")
@@ -283,7 +284,7 @@ class GPSDataCapture:
             print("Unsupported file format")
             return
         
-        print(f"\n📖 Reading GPS data from: {filename}")
+        print(f"\nReading GPS data from: {filename}")
         print(f"   Total records: {len(data)}")
         
         for i, record in enumerate(data[:5]):  # Show first 5 records
